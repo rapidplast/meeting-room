@@ -20,20 +20,20 @@
     <meta name="csrf-token" content="csrf_token()">
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2.8.2/dist/alpine.min.js"></script>
     <!-- Favicon icon -->
-    <link rel="icon" href="{{asset('public/defaultImage/favico.png')}}" type="image/x-icon">
+    <link rel="icon" href="{{asset('defaultImage/favico.png')}}" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
     <!-- Required Fremwork -->
-    <link rel="stylesheet" type="text/css" href="{{asset('public/assets/assetsAdmin/css/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/assetsAdmin/css/bootstrap/css/bootstrap.min.css')}}">
     <!-- themify-icons line icon -->
-    <link rel="stylesheet" type="text/css" href="{{asset('public/assets/assetsAdmin/icon/themify-icons/themify-icons.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/assetsAdmin/icon/themify-icons/themify-icons.css')}}">
     <!-- ico font -->
-    <link rel="stylesheet" type="text/css" href="{{asset('public/assets/assetsAdmin/icon/icofont/css/icofont.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/assetsAdmin/icon/icofont/css/icofont.css')}}">
     {{-- Full Calendar Style --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
     <!-- Style.css -->
-    <link rel="stylesheet" type="text/css" href="{{asset('public/assets/assetsAdmin/css/style.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('public/assets/assetsAdmin/css/jquery.mCustomScrollbar.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/assetsAdmin/css/style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/assetsAdmin/css/jquery.mCustomScrollbar.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
@@ -298,24 +298,24 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Warning Section Ends -->
     <!-- Required Jquery -->
-    <script type="text/javascript" src="{{asset('public/assets/assetsAdmin/js/jquery/jquery.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('public/assets/assetsAdmin/js/jquery-ui/jquery-ui.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('public/assets/assetsAdmin/js/popper.js/popper.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('public/assets/assetsAdmin/js/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/jquery/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/jquery-ui/jquery-ui.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/popper.js/popper.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/bootstrap/js/bootstrap.min.js')}}"></script>
     <!-- jquery slimscroll js -->
-    <script type="text/javascript" src="{{asset('public/assets/assetsAdmin/js/jquery-slimscroll/jquery.slimscroll.js')}}">
+    <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/jquery-slimscroll/jquery.slimscroll.js')}}">
     </script>
     <!-- modernizr js -->
-    <script type="text/javascript" src="{{asset('public/assets/assetsAdmin/js/modernizr/modernizr.js')}}"></script>
-    <script type="text/javascript" src="{{asset('public/assets/assetsAdmin/js/modernizr/css-scrollbars.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/modernizr/modernizr.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/modernizr/css-scrollbars.js')}}"></script>
     {{-- FullCalendar --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!-- classie js -->
-    <script type="text/javascript" src="{{asset('public/assets/assetsAdmin/js/classie/classie.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/classie/classie.js')}}"></script>
     <!-- Custom js -->
-    <script type="text/javascript" src="{{asset('public/assets/assetsAdmin/js/script.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/script.js')}}"></script>
     <script src="{{asset('assets/assetsAdmin/js/pcoded.min.js')}}"></script>
     <script src="{{asset('assets/assetsAdmin/js/demo-12.js')}}"></script>
     <script src="{{asset('assets/assetsAdmin/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
