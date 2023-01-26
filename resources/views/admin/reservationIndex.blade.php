@@ -55,17 +55,17 @@
                             @csrf
                             <div class="pcoded-search-box d-flex">
                                 <label for="reservation_time" class="col-sm-3 col-form-label">Meeting Time In</label>                                                                                                               
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <input type="date" class="form-control" id="in" placeholder="Enter Reservation Time" name="in"> 
                                 </div>
                                 <label for="reservation_time" class="col-sm-3 col-form-label">Meeting Time Out</label>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                 <input type="date" class="form-control" id="out" placeholder="Enter Reservation Time" name="out">
                                 
                             </div>     
                             
                             <div>                                
-                                <button type="submit" class="btn btn-primary">Meeting Load</button>
+                                <button type="submit" class="btn btn-primary">Load Meeting</button>
                             </div>
                         </form>
                     </div></div>
@@ -80,10 +80,9 @@
                 <form method="post" action="{{ route('reservation.store') }}" id="myForm" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row">
-                        <label for="name" class="col-sm-3 col-form-label">Nama User</label>
-                        <div class="col-sm-8">
+                        <label for="name" class="col-sm-3 col-form-label">User Name</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="nama" placeholder="Input Nama" name="nama">
+                                <input type="text" class="form-control" id="nama" placeholder="Input Your Name" name="nama">
                             </div>
 
                             {{-- <select name="user_id" class="form-control" autofocus>
@@ -94,17 +93,15 @@
                                 @endforeach
 
                             </select> --}}
-                        </div>
                     </div>   
 
                     <div class="form-group row">
-                        <label for="meeting_id" class="col-sm-3 col-form-label">Room Meeting</label>
-                        
+                        <label for="meeting_id" class="col-sm-3 col-form-label">Meeting Room</label>
                         <div class="col-sm-8">
                             <select name="meeting_id" id="meeting_id" class="form-control">
-                                <option value="" selected disabled>===== Pilih Meeting Room =====</option>
+                                <option value="" selected disabled>===== Choose Meeting Room =====</option>
                                 @foreach($meeting as $data)
-                                    <option value="{{$data->meeting_id}}">{{$data->meeting_id}} | {{$data->name}}</option>
+                                    <option value="{{$data->meeting_id}}">{{$data->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -116,7 +113,7 @@
                         </div> --}}
                     </div>
                     <div class="form-group row">
-                        <label for="datee" class="col-sm-3 col-form-label">Date Meeting</label>
+                        <label for="datee" class="col-sm-3 col-form-label">Meeting Date</label>
                         <div class="col-sm-8">
                             <input type="date" class="form-control" id="datee" placeholder="Enter Reservation Time" name="datee">
                         </div>
@@ -134,9 +131,9 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="ket" class="col-sm-3 col-form-label">Ket</label>
+                        <label for="ket" class="col-sm-3 col-form-label">Description</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="ket" placeholder="Enter Reservation Time" name="ket">
+                            <input type="text" class="form-control" id="ket" placeholder="Input Reservation Description" name="ket">
                         </div>
                     </div>
                     {{-- <div class="form-group row">
@@ -159,10 +156,10 @@
                     <thead>
                         <tr>
                             <!-- <th>#</th> -->
-                            <th>Tanggal</th>
+                            <th>Date</th>
                             <th>Meeting Time In</th>
                             <th>Meeting Time Out</th>
-                            <th>Keterangan</th>
+                            <th>Description</th>
                             <th>Meeting Room</th>
                             <th>User</th>
                             <th>Status</th>

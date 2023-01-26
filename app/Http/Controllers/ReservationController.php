@@ -34,7 +34,7 @@ class ReservationController extends Controller
         } elseif($request->get('in')) {
             $reservation = Reservation::with('pegawai', 'meeting')->where('status',0)->whereBetween('date',[$request->get('in'),$request->get('out')])->groupBy('reservation_code')->orderBy('reservation_time', 'desc')->get();
         }else{
-            $reservation = Reservation::with('meeting')->where([['date',$now],['status',0]])->orderBy('reservation_time', 'desc')->get();
+            $reservation = Reservation::with('meeting')->where([['date',$now],['status',0]])->orderBy('reservation_time', 'asc')->get();
         }        
         // return response()->json($reservation);
         // $reservationStatus = ReservationStatus::all();
