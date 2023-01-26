@@ -30,8 +30,8 @@
             <div class="page-header-title">
                 <i class="icofont icofont-table bg-c-blue"></i>
                 <div class="d-inline">
-                    <h4>Meeting Room List</h4>
-                    <span>Here is the list of Reservations in Meet</span>
+                    <h4>Meeting Room Reservations</h4>
+                    <span>Here is the list of Reservations in Meeting Room</span>
                 </div>
             </div>
         </div>
@@ -158,13 +158,13 @@
                 <table class="table table-hover" id="reservationTable">
                     <thead>
                         <tr>
-                            {{-- <th>#</th> --}}                            
-                            <th>User</th>
+                            <!-- <th>#</th> -->
                             <th>Tanggal</th>
                             <th>Meeting Time In</th>
                             <th>Meeting Time Out</th>
                             <th>Keterangan</th>
                             <th>Meeting Room</th>
+                            <th>User</th>
                             <th>Status</th>
                             {{-- <th>Action</th> --}}
                         </tr>
@@ -180,13 +180,13 @@
                         // $reservationStatus1 = reservationStatus::all();
                         ?>
                         <tr>
-                            {{-- <th scope="row">{{$no++}}</th> --}}                        
-                            <td>{{$r->nama}}</td>
+                            <!-- <th scope="row">{{$no++}}</th>                         -->
                             <td>{{$r->date}}</td>
                             <td>{{$r->reservation_time}}</td>
                             <td>{{$r->reservation_time_out}}</td>
                             <td>{{$r->ket}}</td>
-                            <td>{{$r->meeting->name}}</td>                        
+                            <td>{{$r->meeting->name}}</td>
+                            <td>{{$r->nama}}</td>
                             <td> <div id="status{{$r->status}}">                             
                                 @if($r->status )
                                 <div

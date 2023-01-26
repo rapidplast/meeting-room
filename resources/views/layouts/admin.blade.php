@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Meet </title>
+    <title>Meeting-Room</title>
     <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -20,7 +20,7 @@
     <meta name="csrf-token" content="csrf_token()">
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2.8.2/dist/alpine.min.js"></script>
     <!-- Favicon icon -->
-    <link rel="icon" href="{{asset('assets/assetsAdmin/images/favicon.ico')}}" type="image/x-icon">
+    <link rel="icon" href="{{asset('defaultImage/favico.png')}}" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
     <!-- Required Fremwork -->
