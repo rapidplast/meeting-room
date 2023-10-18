@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2023 at 06:23 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.12
+-- Waktu pembuatan: 18 Okt 2023 pada 05.11
+-- Versi server: 10.4.21-MariaDB
+-- Versi PHP: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category_service`
+-- Struktur dari tabel `category_service`
 --
 
 CREATE TABLE `category_service` (
@@ -36,7 +36,7 @@ CREATE TABLE `category_service` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `category_service`
+-- Dumping data untuk tabel `category_service`
 --
 
 INSERT INTO `category_service` (`category_service_id`, `name`, `image`, `created_at`, `updated_at`) VALUES
@@ -47,7 +47,7 @@ INSERT INTO `category_service` (`category_service_id`, `name`, `image`, `created
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customer`
+-- Struktur dari tabel `customer`
 --
 
 CREATE TABLE `customer` (
@@ -63,7 +63,7 @@ CREATE TABLE `customer` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `employee`
+-- Struktur dari tabel `employee`
 --
 
 CREATE TABLE `employee` (
@@ -77,7 +77,7 @@ CREATE TABLE `employee` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `employee`
+-- Dumping data untuk tabel `employee`
 --
 
 INSERT INTO `employee` (`employee_id`, `name`, `skill`, `description`, `image`, `created_at`, `updated_at`) VALUES
@@ -89,7 +89,7 @@ INSERT INTO `employee` (`employee_id`, `name`, `skill`, `description`, `image`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `failed_jobs`
+-- Struktur dari tabel `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -105,7 +105,7 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `gallery`
+-- Struktur dari tabel `gallery`
 --
 
 CREATE TABLE `gallery` (
@@ -119,7 +119,7 @@ CREATE TABLE `gallery` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `meeting`
+-- Struktur dari tabel `meeting`
 --
 
 CREATE TABLE `meeting` (
@@ -130,20 +130,20 @@ CREATE TABLE `meeting` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `meeting`
+-- Dumping data untuk tabel `meeting`
 --
 
 INSERT INTO `meeting` (`meeting_id`, `name`, `category_service_id`, `service_id`) VALUES
-(1, 'Meeting 1', 1, 1),
-(2, 'Meeting 2', 1, 1),
-(3, 'Meeting 3', 1, 1),
-(4, 'Meeting 4', 1, 1),
-(5, 'Meeting 5', 1, 1);
+(1, 'Meeting Room 1', 1, 1),
+(2, 'Meeting Room 2', 1, 1),
+(3, 'Meeting Room 3', 1, 1),
+(4, 'Meeting Room 4', 1, 1),
+(5, 'Meeting Room 5', 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `message`
+-- Struktur dari tabel `message`
 --
 
 CREATE TABLE `message` (
@@ -158,7 +158,7 @@ CREATE TABLE `message` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `message`
+-- Dumping data untuk tabel `message`
 --
 
 INSERT INTO `message` (`message_id`, `name`, `email`, `title`, `messagetext`, `created_at`, `updated_at`, `show`) VALUES
@@ -172,7 +172,7 @@ INSERT INTO `message` (`message_id`, `name`, `email`, `title`, `messagetext`, `c
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Struktur dari tabel `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -182,7 +182,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `migrations`
+-- Dumping data untuk tabel `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -202,7 +202,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `password_resets`
+-- Struktur dari tabel `password_resets`
 --
 
 CREATE TABLE `password_resets` (
@@ -214,7 +214,7 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reservation`
+-- Struktur dari tabel `reservation`
 --
 
 CREATE TABLE `reservation` (
@@ -235,18 +235,16 @@ CREATE TABLE `reservation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `reservation`
+-- Dumping data untuk tabel `reservation`
 --
 
 INSERT INTO `reservation` (`reservation_id`, `meeting_id`, `reservation_code`, `id_plant`, `nama`, `user_id`, `service_id`, `date`, `reservation_time`, `reservation_time_out`, `ket`, `status`, `created_at`, `updated_at`) VALUES
-(39, 3, '479630', 3, 'lulu', NULL, NULL, '2023-10-03', '15:23:00', '17:23:00', 'IT', 0, '2023-10-03 08:23:08', '2023-10-05 04:21:36'),
-(45, 1, '378907', 1, 'lili', NULL, NULL, '2023-10-05', '08:28:00', '17:28:00', 'IT', 1, '2023-10-05 01:28:32', '2023-10-05 04:20:40'),
-(47, 1, '117218', 2, 'Lisa', NULL, NULL, '2023-10-05', '10:06:00', '17:07:00', 'IT', 1, '2023-10-05 03:07:10', '2023-10-05 04:21:15');
+(64, 1, '263036', 1, 'farah', NULL, NULL, '2023-10-13', '13:10:00', '13:17:00', 'IT', 1, '2023-10-13 06:10:52', '2023-10-13 06:11:23');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reservation_status`
+-- Struktur dari tabel `reservation_status`
 --
 
 CREATE TABLE `reservation_status` (
@@ -259,7 +257,7 @@ CREATE TABLE `reservation_status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `reservation_status`
+-- Dumping data untuk tabel `reservation_status`
 --
 
 INSERT INTO `reservation_status` (`reservation_status_id`, `reservation_code`, `status`, `price`, `created_at`, `updated_at`) VALUES
@@ -269,7 +267,7 @@ INSERT INTO `reservation_status` (`reservation_status_id`, `reservation_code`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `service`
+-- Struktur dari tabel `service`
 --
 
 CREATE TABLE `service` (
@@ -283,7 +281,7 @@ CREATE TABLE `service` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `service`
+-- Dumping data untuk tabel `service`
 --
 
 INSERT INTO `service` (`service_id`, `category_service_id`, `name`, `price`, `image`, `created_at`, `updated_at`) VALUES
@@ -295,7 +293,7 @@ INSERT INTO `service` (`service_id`, `category_service_id`, `name`, `price`, `im
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_plant`
+-- Struktur dari tabel `tb_plant`
 --
 
 CREATE TABLE `tb_plant` (
@@ -304,7 +302,7 @@ CREATE TABLE `tb_plant` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tb_plant`
+-- Dumping data untuk tabel `tb_plant`
 --
 
 INSERT INTO `tb_plant` (`id_plant`, `name`) VALUES
@@ -317,7 +315,7 @@ INSERT INTO `tb_plant` (`id_plant`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE `user` (
@@ -336,7 +334,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`user_id`, `name`, `username`, `phone`, `email`, `email_verified_at`, `password`, `image`, `is_admin`, `remember_token`, `created_at`, `updated_at`) VALUES
@@ -350,56 +348,56 @@ INSERT INTO `user` (`user_id`, `name`, `username`, `phone`, `email`, `email_veri
 --
 
 --
--- Indexes for table `category_service`
+-- Indeks untuk tabel `category_service`
 --
 ALTER TABLE `category_service`
   ADD PRIMARY KEY (`category_service_id`) USING BTREE;
 
 --
--- Indexes for table `customer`
+-- Indeks untuk tabel `customer`
 --
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indexes for table `employee`
+-- Indeks untuk tabel `employee`
 --
 ALTER TABLE `employee`
   ADD PRIMARY KEY (`employee_id`) USING BTREE;
 
 --
--- Indexes for table `gallery`
+-- Indeks untuk tabel `gallery`
 --
 ALTER TABLE `gallery`
   ADD PRIMARY KEY (`gallery_id`) USING BTREE,
   ADD KEY `gallery_category_service_id_foreign` (`category_service_id`) USING BTREE;
 
 --
--- Indexes for table `meeting`
+-- Indeks untuk tabel `meeting`
 --
 ALTER TABLE `meeting`
   ADD PRIMARY KEY (`meeting_id`);
 
 --
--- Indexes for table `message`
+-- Indeks untuk tabel `message`
 --
 ALTER TABLE `message`
   ADD PRIMARY KEY (`message_id`) USING BTREE;
 
 --
--- Indexes for table `migrations`
+-- Indeks untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indexes for table `password_resets`
+-- Indeks untuk tabel `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`(191)) USING BTREE;
 
 --
--- Indexes for table `reservation`
+-- Indeks untuk tabel `reservation`
 --
 ALTER TABLE `reservation`
   ADD PRIMARY KEY (`reservation_id`),
@@ -408,101 +406,101 @@ ALTER TABLE `reservation`
   ADD KEY `reservation_service_id_foreign` (`service_id`);
 
 --
--- Indexes for table `reservation_status`
+-- Indeks untuk tabel `reservation_status`
 --
 ALTER TABLE `reservation_status`
   ADD PRIMARY KEY (`reservation_status_id`) USING BTREE,
   ADD KEY `reservation_status_reservation_code_foreign` (`reservation_code`(191)) USING BTREE;
 
 --
--- Indexes for table `service`
+-- Indeks untuk tabel `service`
 --
 ALTER TABLE `service`
   ADD PRIMARY KEY (`service_id`) USING BTREE,
   ADD KEY `service_category_service_id_foreign` (`category_service_id`) USING BTREE;
 
 --
--- Indexes for table `tb_plant`
+-- Indeks untuk tabel `tb_plant`
 --
 ALTER TABLE `tb_plant`
   ADD PRIMARY KEY (`id_plant`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `category_service`
+-- AUTO_INCREMENT untuk tabel `category_service`
 --
 ALTER TABLE `category_service`
   MODIFY `category_service_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `customer`
+-- AUTO_INCREMENT untuk tabel `customer`
 --
 ALTER TABLE `customer`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `employee`
+-- AUTO_INCREMENT untuk tabel `employee`
 --
 ALTER TABLE `employee`
   MODIFY `employee_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `gallery`
+-- AUTO_INCREMENT untuk tabel `gallery`
 --
 ALTER TABLE `gallery`
   MODIFY `gallery_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `meeting`
+-- AUTO_INCREMENT untuk tabel `meeting`
 --
 ALTER TABLE `meeting`
   MODIFY `meeting_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `message`
+-- AUTO_INCREMENT untuk tabel `message`
 --
 ALTER TABLE `message`
   MODIFY `message_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `reservation`
+-- AUTO_INCREMENT untuk tabel `reservation`
 --
 ALTER TABLE `reservation`
-  MODIFY `reservation_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `reservation_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
--- AUTO_INCREMENT for table `reservation_status`
+-- AUTO_INCREMENT untuk tabel `reservation_status`
 --
 ALTER TABLE `reservation_status`
   MODIFY `reservation_status_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `service`
+-- AUTO_INCREMENT untuk tabel `service`
 --
 ALTER TABLE `service`
   MODIFY `service_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `tb_plant`
+-- AUTO_INCREMENT untuk tabel `tb_plant`
 --
 ALTER TABLE `tb_plant`
   MODIFY `id_plant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `gallery`
+-- Ketidakleluasaan untuk tabel `gallery`
 --
 ALTER TABLE `gallery`
   ADD CONSTRAINT `gallery_category_service_id_foreign` FOREIGN KEY (`category_service_id`) REFERENCES `category_service` (`category_service_id`) ON DELETE CASCADE ON UPDATE CASCADE;
