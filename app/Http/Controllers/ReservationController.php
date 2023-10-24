@@ -23,74 +23,104 @@ class ReservationController extends Controller
 {
 
     public function index(Request $request)
-    {
-        // Perbarui status reservasi berdasarkan waktu
-        $now = Carbon::now();
-        Reservation::where('reservation_time_out', '<', $now)->update(['status' => 0]);
+{
+    // Perbarui status reservasi berdasarkan waktu
+    $now = Carbon::now();
+    Reservation::where('reservation_time_out', '<', $now)->update(['status' => 0]);
 
-        // Pesan untuk memberitahu pengguna untuk me-refresh halaman
-        $message = 'Status Reservasi telah diperbarui';
-        session(['refresh_message' => $message]);
+    // Pesan untuk memberitahu pengguna untuk me-refresh halaman
+    $message = 'Status Reservasi telah diperbarui';
+    session(['refresh_message' => $message]);
 
-        // Ambil data reservasi dari database
-        $reservations = Reservation::with('plant')->where('id_plant', '=', $request->id_plant)->get();
-        $meeting = Meeting::all();
-        $plant = Plant::all();
-        
-        return view('admin.reservationIndex', compact('reservations', 'meeting', 'plant'));
-    }
+    // Ambil data reservasi yang sudah selesai
+    $reservationTimeout = Reservation::where('reservation_time_out', '<', $now)->max('reservation_time_out');
+
+    // Ambil data reservasi dari database
+    $reservations = Reservation::with('plant')->where('id_plant', '=', $request->id_plant)->get();
+    $meeting = Meeting::all();
+    $plant = Plant::all();
+
+    return view('admin.reservationIndex', compact('reservations', 'meeting', 'plant', 'reservationTimeout'));
+}
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'id_plant' => 'required',
-            'nama' => 'required',
-            'meeting_id' => 'required',
-            'date' => 'required',
-            'reservation_time' => 'required',
-            'reservation_time_out' => 'required',
-            // 'ket' => 'required',
-        ]);
-    
-        try {
-            $datapost['id_plant'] = $request->id_plant;
-            $datapost['nama'] = $request->nama;
-            $datapost['meeting_id'] = $request->meeting_id;
-            $datapost['reservation_code'] = rand(10000, 500000);
-            $datapost['user_id'] = $request->user_id;
-            $datapost['date'] = $request->date;
-            $datapost['reservation_time'] = date('H:i:s', strtotime($request->reservation_time));
-            $datapost['reservation_time_out'] = date('H:i:s', strtotime($request->reservation_time_out));
-            $datapost['ket'] = $request->ket;
-    
-            // Mengambil tanggal dan waktu saat ini
-            $now = Carbon::now();
-    
-            // Combine the date and time to create a datetime string
-            $reservation_datetime = Carbon::parse($request->date . ' ' . $request->reservation_time_out);
-            $now = Carbon::now();
+{
+    $request->validate([
+        'id_plant' => 'required',
+        'nama' => 'required',
+        'meeting_id' => 'required',
+        'date' => 'required',
+        'reservation_time' => 'required',
+        'reservation_time_out' => 'required',
+        // 'ket' => 'required',
+    ]);
 
-            // Check if the reservation datetime is in the past
-            if ($now > $reservation_datetime) {
-                $status = 0; // Past datetime, status is "Done"
-            } else {
-                $status = 1; // Future or present datetime, status is "Used"
-            }
+    try {
+        $datapost['id_plant'] = $request->id_plant;
+        $datapost['nama'] = $request->nama;
+        $datapost['meeting_id'] = $request->meeting_id;
+        $datapost['reservation_code'] = rand(10000, 500000);
+        $datapost['user_id'] = $request->user_id;
+        $datapost['date'] = $request->date;
+        $reservation_time = date('H:i:s', strtotime($request->reservation_time));
+        $reservation_time_out = date('H:i:s', strtotime($request->reservation_time_out));
+        $datapost['reservation_time'] = $reservation_time;
+        $datapost['reservation_time_out'] = $reservation_time_out;
+        $datapost['ket'] = $request->ket;
 
-            // dd($reservation_datetime, $now, $status);
+        // Mengecek apakah ada reservasi yang tumpang tindih di plant yang sama
+        $overlappingReservations = Reservation::where('id_plant', $request->id_plant)
+            ->where('meeting_id', $request->meeting_id)
+            ->where('date', $request->date)
+            ->where(function ($query) use ($reservation_time, $reservation_time_out) {
+                $query->where(function ($q) use ($reservation_time, $reservation_time_out) {
+                    $q->where('reservation_time', '<=', $reservation_time)
+                        ->where('reservation_time_out', '>=', $reservation_time_out);
+                })->orWhere(function ($q) use ($reservation_time, $reservation_time_out) {
+                    $q->where('reservation_time', '>=', $reservation_time)
+                        ->where('reservation_time_out', '<=', $reservation_time_out);
+                });
+            })
+            ->count();
 
-            $datapost['status'] = $status;
-
-            Reservation::create($datapost);
-    
-            // Mengarahkan pengguna kembali ke halaman reservation all sesuai dengan plantnya
-            return redirect()->route('reservation.index', ['id_plant' => $request->id_plant])->with('success', 'New Reservation Added Successfully');
-        } catch (\Exception $th) {
-            return redirect()->back()->with('fail', $th->getMessage());
+        if ($overlappingReservations > 0) {
+            return redirect()->back()->with('fail', 'Ruangan pertemuan sudah dipesan untuk waktu yang dipilih.');
         }
-    }
-    
 
+        // Mengecek apakah ruangan sedang digunakan saat ini di plant yang sama
+        $now = Carbon::now();
+        $currentReservations = Reservation::where('id_plant', $request->id_plant)
+            ->where('meeting_id', $request->meeting_id)
+            ->where('date', $request->date)
+            ->where('reservation_time', '<=', $now)
+            ->where('reservation_time_out', '>=', $now)
+            ->count();
+
+        if ($currentReservations > 0) {
+            return redirect()->back()->with('warning', 'Ruangan pertemuan sedang digunakan saat ini.');
+        }
+
+        // Menggabungkan tanggal dan waktu untuk membuat string datetime
+        $reservation_datetime = Carbon::parse($request->date . ' ' . $request->reservation_time_out);
+
+        // Mengecek apakah waktu reservasi berada di masa lalu
+        if ($now > $reservation_datetime) {
+            $status = 0; // Waktu telah berlalu, status "Selesai"
+        } else {
+            $status = 1; // Waktu mendatang atau saat ini, status "Digunakan"
+        }
+
+        $datapost['status'] = $status;
+
+        Reservation::create($datapost);
+
+        // Mengarahkan pengguna kembali ke halaman reservation all sesuai dengan plantnya
+        return redirect()->route('reservation.index', ['id_plant' => $request->id_plant])->with('success', 'Reservasi Baru Ditambahkan dengan Sukses');
+    } catch (\Exception $th) {
+        return redirect()->back()->with('fail', $th->getMessage());
+    }
+}
+    
     //     public function store(Request $request)
     // {
 
@@ -299,8 +329,57 @@ class ReservationController extends Controller
         return response()->json($reservations, JsonResponse::HTTP_OK);
     }
 
-    
+    public function showMeetingRoomReservations(Request $request)
+    {
+        // Misalkan Anda memiliki data waktu mulai dan waktu selesai yang Anda dapatkan dari database
+        $meetingRoomIsUsed = $this->checkMeetingRoomAvailability($request->id_plant, $request->meeting_id, $request->date, $request->reservation_time, $request->reservation_time_out);
+        $meetingTimeIn = $request->reservation_time;
+        $meetingTimeOut = $request->reservation_time_out;
 
+        // Kemudian kirimkan variabel ini ke tampilan Anda
+        return view('meeting-room-reservations', compact('meetingRoomIsUsed', 'meetingTimeIn', 'meetingTimeOut'));
+    }
+
+    // Fungsi untuk memeriksa ketersediaan ruangan pertemuan pada waktu yang dipilih
+    private function checkMeetingRoomAvailability($idPlant, $meetingId, $date, $reservationTime, $reservationTimeOut)
+    {
+        $reservationDateTime = Carbon::parse($date . ' ' . $reservationTime);
+        $reservationDateTimeOut = Carbon::parse($date . ' ' . $reservationTimeOut);
+
+        // Mengecek apakah ada reservasi yang tumpang tindih di plant yang sama
+        $overlappingReservations = Reservation::where('id_plant', $idPlant)
+            ->where('meeting_id', $meetingId)
+            ->where('date', $date)
+            ->where(function ($query) use ($reservationDateTime, $reservationDateTimeOut) {
+                $query->where(function ($q) use ($reservationDateTime, $reservationDateTimeOut) {
+                    $q->where('reservation_time', '<=', $reservationDateTime)
+                        ->where('reservation_time_out', '>=', $reservationDateTimeOut);
+                })->orWhere(function ($q) use ($reservationDateTime, $reservationDateTimeOut) {
+                    $q->where('reservation_time', '>=', $reservationDateTime)
+                        ->where('reservation_time_out', '<=', $reservationDateTimeOut);
+                });
+            })
+            ->count();
+
+        if ($overlappingReservations > 0) {
+            return false; // Ruangan pertemuan sudah dipesan untuk waktu yang dipilih
+        }
+
+        // Mengecek apakah ruangan sedang digunakan saat ini di plant yang sama
+        $now = Carbon::now();
+        $currentReservations = Reservation::where('id_plant', $idPlant)
+            ->where('meeting_id', $meetingId)
+            ->where('date', $date)
+            ->where('reservation_time', '<=', $now)
+            ->where('reservation_time_out', '>=', $now)
+            ->count();
+
+        if ($currentReservations > 0) {
+            return false; // Ruangan pertemuan sedang digunakan saat ini
+        }
+
+        return true; // Ruangan tersedia pada waktu yang dipilih
+    }
 
     
 
@@ -331,5 +410,7 @@ class ReservationController extends Controller
     //     dd($reservations);
     //     return view('layouts.calendar', compact('currentMeetingDate', 'events'));
     // }
+
+    
 
 }

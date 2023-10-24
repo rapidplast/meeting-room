@@ -3,16 +3,16 @@
 
 <head>
         <meta charset="utf-8">
-        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('defaultImage/favico.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('public/defaultImage/favico.png') }}">
         <title>Reservation</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
-        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-        <script src="{{ asset('js/main.js') }}"></script>
+        <link href="{{ asset('public/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('public/css/style.css') }}" rel="stylesheet">
+        <script src="{{ asset('public/js/main.js') }}"></script>
         <!-- Favicon -->
-        <link href="img/favicon.ico" rel="icon">
+        <link href="public/img/favicon.ico" rel="icon">
         
         <!-- tabel -->
         <!-- <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet"> -->
@@ -40,15 +40,16 @@
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 
         <!-- Libraries Stylesheet -->
-        <link href="lib/animate/animate.min.css" rel="stylesheet">
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="public/lib/animate/animate.min.css" rel="stylesheet">
+        <link href="public/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
         <!-- Customized Bootstrap Stylesheet -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="public/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="css/style.css" rel="stylesheet">
+        <link href="public/css/style.css" rel="stylesheet">
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
+
     </head>
 
 <body>
@@ -85,14 +86,14 @@
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top py-0 pe-5">
             <a href="/" class="navbar-brand ps-5 me-0" style="background-color: #FFFFFF;">
-                <img src="{{ asset('img/RapidPlast.png') }}" alt="Logo Rapid">
+                <img src="{{ asset('public/img/RapidPlast.png') }}" alt="Logo Rapid">
             </a>
             <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="/" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">Home</a>
+                    <a href="/meeting-room" class="nav-item nav-link {{ request()->is('/meeting-room') ? 'active' : '' }}">Home</a>
                     <a href="#" class="nav-item nav-link {{ request()->is('reservation') ? 'active' : '' }}">Meeting Reservation</a>
                     <a href="#" class="nav-item nav-link {{ request()->is('reservation/create') ? 'Active' : '' }}" onclick="showFormAddReservation(); return false;"><i class="ti-plus"></i>Add Reservation</a>
                     </div>
@@ -253,16 +254,16 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Warning Section Ends -->
     <!-- Required Jquery -->
-    <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/jquery/jquery.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/jquery-ui/jquery-ui.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/popper.js/popper.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('public/assets/assetsAdmin/js/jquery/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('public/assets/assetsAdmin/js/jquery-ui/jquery-ui.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('public/assets/assetsAdmin/js/popper.js/popper.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('public/assets/assetsAdmin/js/bootstrap/js/bootstrap.min.js')}}"></script>
     <!-- jquery slimscroll js -->
-    <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/jquery-slimscroll/jquery.slimscroll.js')}}">
+    <script type="text/javascript" src="{{asset('public/assets/assetsAdmin/js/jquery-slimscroll/jquery.slimscroll.js')}}">
     </script>
     <!-- modernizr js -->
-    <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/modernizr/modernizr.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/modernizr/css-scrollbars.js')}}"></script>
+    <script type="text/javascript" src="{{asset('public/assets/assetsAdmin/js/modernizr/modernizr.js')}}"></script>
+    <script type="text/javascript" src="{{asset('public/assets/assetsAdmin/js/modernizr/css-scrollbars.js')}}"></script>
     {{-- FullCalendar --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
@@ -270,10 +271,10 @@
     <!-- classie js -->
     <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/classie/classie.js')}}"></script>
     <!-- Custom js -->
-    <script type="text/javascript" src="{{asset('assets/assetsAdmin/js/script.js')}}"></script>
-    <script src="{{asset('assets/assetsAdmin/js/pcoded.min.js')}}"></script>
-    <script src="{{asset('assets/assetsAdmin/js/demo-12.js')}}"></script>
-    <script src="{{asset('assets/assetsAdmin/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('public/assets/assetsAdmin/js/script.js')}}"></script>
+    <script src="{{asset('public/assets/assetsAdmin/js/pcoded.min.js')}}"></script>
+    <script src="{{asset('public/assets/assetsAdmin/js/demo-12.js')}}"></script>
+    <script src="{{asset('public/assets/assetsAdmin/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -281,20 +282,20 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="public/lib/wow/wow.min.js"></script>
+    <script src="public/lib/easing/easing.min.js"></script>
+    <script src="public/lib/waypoints/waypoints.min.js"></script>
+    <script src="public/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="public/lib/counterup/counterup.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="public/js/main.js"></script>
 
-    <script type="text/javascript" src="assets/DataTables/media/js/jquery.js"></script>
-    <script type="text/javascript" src="assets/DataTables/media/js/jquery.dataTables.js"></script>
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="assets/DataTables/media/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="assets/DataTables/media/css/dataTables.bootstrap.css">
+    <script type="text/javascript" src="public/assets/DataTables/media/js/jquery.js"></script>
+    <script type="text/javascript" src="public/assets/DataTables/media/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="public/assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="public/assets/DataTables/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="public/assets/DataTables/media/css/dataTables.bootstrap.css">
 
 
     
@@ -383,6 +384,26 @@
         alert('Nomor telepon telah disalin: ' + tempInput.value);
     }
 </script>
+
+<!-- <script>
+    function checkReservationStatus() {
+        // Ambil pesan refresh jika ada
+        const refreshMessage = "{!! session('refresh_message') ?? '' !!}";
+
+        // Periksa jika ada pesan refresh, tampilkan SweetAlert
+        if (refreshMessage) {
+            Swal.fire({
+                icon: 'info',
+                title: 'Perhatian!',
+                text: refreshMessage,
+                showConfirmButton: true,
+            });
+        }
+    }
+
+    // Panggil fungsi checkReservationStatus saat halaman dimuat
+    window.addEventListener('load', checkReservationStatus);
+</script> -->
 
 </body>
 

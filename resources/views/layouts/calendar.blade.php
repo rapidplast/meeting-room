@@ -2,26 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('defaultImage/favico.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('public/defaultImage/favico.png') }}">
     <title>Reservation</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <script src="{{ asset('js/main.js') }}"></script>
+    <link href="{{ asset('public/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/css/style.css') }}" rel="stylesheet">
+    <script src="{{ asset('public/js/main.js') }}"></script>
     <!-- Favicon -->
-    <link href="{{ asset('img/favicon.ico') }}" rel="icon">
+    <link href="{{ asset('public/img/favicon.ico') }}" rel="icon">
     <!-- DataTables CSS dan JS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
     <!-- Libraries Stylesheet -->
-    <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/lib/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Template Stylesheet -->
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/css/style.css') }}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -73,14 +73,14 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top py-0 pe-5">
         <a href="/" class="navbar-brand ps-5 me-0" style="background-color: #FFFFFF;">
-            <img src="{{ asset('img/RapidPlast.png') }}" alt="Logo Rapid">
+            <img src="{{ asset('public/img/RapidPlast.png') }}" alt="Logo Rapid">
         </a>
         <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="/" class="nav-item nav-link">Home</a>
+                <a href="/meeting-room" class="nav-item nav-link">Home</a>
             </div>
         </div>
     </nav>

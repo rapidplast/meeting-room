@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 @section('content')
+@include('sweetalert::alert')
 <div>
     <!-- @if ($message = Session::get('fail'))
     <div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert">
@@ -68,81 +69,44 @@
 
 
             {{-- Add Data --}}
-            <div class="mx-3" style="display: none;" id="formAddReservation" class="my-3">
-                <center><h2 class="mb-3">Add Reservation</h2></center>
-                <form method="post" action="{{ route('reservation.store') }}" id="myForm" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-3 col-form-label">User Name</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="nama" placeholder="Input Your Name" name="nama">
-                            </div>
-
-                            {{-- <select name="user_id" class="form-control" autofocus>
-                            <option >--PILIH Nama Karyawan--</option>
-                                @foreach($user as $c)
-                                <option value="{{$c->user_id}}">{{$c->name}}
-                                </option>
-                                @endforeach
-
-                            </select> --}}
-                    </div>   
-
-                    <div class="form-group row">
-                        <label for="meeting_id" class="col-sm-3 col-form-label">Meeting Room</label>
-                        <div class="col-sm-8">
-                            <select name="meeting_id" id="meeting_id" class="form-control">
-                                <option value="" selected disabled>===== Choose Meeting Room =====</option>
-                                @foreach($meeting as $data)
-                                    <option value="{{$data->meeting_id}}">{{$data->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                           {{-- <div class="col-sm-8">
-                                @foreach($meeting as $s)
-                                <input type="radio" id="service{{$s->service_id}}" name="service_id[]" value="{{$s->service_id}}">
-                                <label for="service{{$s->service_id}}">{{$s->service_id}}|{{$s->name}}</label>
-                                @endforeach                            
-                        </div> --}}
-                    </div>
-                    <div class="form-group row">
-                        <label for="datee" class="col-sm-3 col-form-label">Meeting Date</label>
-                        <div class="col-sm-8">
-                            <input type="date" class="form-control" id="datee" placeholder="Enter Reservation Time" name="datee">
-                        </div>
-                    </div>
-                    <div class="d-flex mx-3 mb-3" style="justify-content: space-between !important;">
-                        <label for="reservation_time" class="col-sm-3 col-form-label">Meeting Time In</label>
-                        <div class="col-sm-4">
-                            <input type="date" class="form-control" id="in" placeholder="Enter Reservation Time" name="in"> 
-                        </div>
-                        <label for="reservation_time_out" class="col-sm-3 col-form-label">Meeting Time Out</label>
-                        <div class="col-sm-4">
-                            <input type="date" class="form-control" id="out" placeholder="Enter Reservation Time" name="out">                                       
-                        </div>
-                        <div class="col-sm-4">
-                            <button type="submit" class="btn btn-primary">Load Meeting</button>
-                        </div>
-                        <button class="btn btn-primary" onclick="showFormAddReservation(); return false;"><i class="ti-plus"></i>Add Meeting</button>
-                    </div>
-                    <div class="form-group row">
-                        <label for="ket" class="col-sm-3 col-form-label">Description</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="ket" placeholder="Input Reservation Description" name="ket">
-                        </div>
-                    </div>
-                    {{-- <div class="form-group row">
-                        <label for="ket" class="col-sm-3 col-form-label">Ket</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="ket" placeholder="Enter Reservation Time" name="ket">
-                        </div>
-                    </div> --}}
-                    <div>
-                        <a type="button"  class="btn btn-primary btn-outline-primary" onclick="hideForm()">Back</a>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
+            <div class="mx-3" id="formAddReservation" style="display: none;">
+    <center>
+        <h2 class="mb-3">Add Reservation</h2>
+    </center>
+    <form method="post" action="{{ route('reservation.store') }}" id="myForm" enctype="multipart/form-data">
+        @csrf
+        <div class="form-group row">
+            <label for="name" class="col-sm-3 col-form-label">User Name</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="nama" placeholder="Input Your Name" name="nama">
             </div>
+        </div>
+        <div class="form-group row">
+        <label for="meeting_id" class="col-sm-3 col-form-label">Meeting Room</label>
+        <div class="col-sm-8">
+            <select name="meeting_id" id="meeting_id" class="form-control">
+                <option value="" selected disabled>===== Choose Meeting Room =====</option>
+                @foreach($meeting as $data)
+                    <option value="{{$data->meeting_id}}">{{$data->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        </div>
+    <div id="meetingAlert" class="alert alert-info" style="display: none;"></div>
+        <!-- ... (form fields for date and time) -->
+        <div class="form-group row">
+            <label for="ket" class="col-sm-3 col-form-label">Description</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="ket" placeholder="Input Reservation Description" name="ket">
+            </div>
+        </div>
+        <div>
+            <a type="button" class="btn btn-primary btn-outline-primary" onclick="hideForm()">Back</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
 
 
             {{-- Table --}}
@@ -361,7 +325,7 @@ $(document).ready(function() {
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -430,5 +394,101 @@ document.getElementById('reservation_time_out').addEventListener('blur', functio
     validateTimeInput(this);
 });
 </script>
+<script>
+$(document).ready(function() {
+    $('#reservationTable').DataTable();
+});
 
+function validateTimeInput(inputElement) {
+    const timeRegex = /^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)$/i; // Format HH:MM AM/PM
+
+    if (!inputElement.value.match(timeRegex)) {
+        alert('Invalid time format. Please use HH:MM AM/PM format.');
+        inputElement.value = ''; // Menghapus nilai input yang salah
+        inputElement.focus(); // Memfokuskan kembali ke input yang salah
+    }
+}
+
+document.getElementById('reservation_time').addEventListener('blur', function() {
+    validateTimeInput(this);
+});
+
+document.getElementById('reservation_time_out').addEventListener('blur', function() {
+    validateTimeInput(this);
+});
+
+function showFormAddReservation() {
+    console.log('OK')
+    var formAdd = document.getElementById('formAddReservation');
+    var csTable = document.getElementById('reservationTable');
+    var header = document.getElementById('header-content')
+    console.log(header)
+    if (formAdd.style.display === "none") {
+        formAdd.style.display = "";
+        csTable.style.display = "none";
+        header.style.display = "none";
+    } else {
+        formAdd.style display = "none";
+        csTable.style.display = "";
+        header.style.display = "block";
+    }
+}
+
+function hideForm() {
+    console.log('OK')
+    var formAdd = document.getElementById('formAddReservation');
+    var csTable = document.getElementById('reservationTable');
+    var header = document.getElementById('header-content')
+    if (formAdd.style.display === "") {
+        formAdd.style.display = "none";
+        csTable.style.display = "";
+        header.style.display = "";
+    }
+}
+</script>
+
+<script>
+@if (Session::has('success'))
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: '{{ Session::get('success') }}',
+    });
+@endif
+
+@if (Session::has('fail'))
+    Swal.fire({
+        icon: 'error',
+        title: 'Gagal!',
+        text: '{{ Session::get('fail') }}',
+    });
+@endif
+</script>
+
+<script>
+$(document).ready(function() {
+    // Get the select input element
+    var selectMeeting = $('#meeting_id');
+
+    // Listen for changes in the select input
+    selectMeeting.change(function() {
+        // Get the selected meeting room
+        var selectedMeeting = selectMeeting.find(":selected").text();
+
+        // Simulate an AJAX call to check if the meeting room is in use
+        // Replace this with your actual logic to check if the room is in use
+        var isMeetingRoomInUse = false;
+
+        // Check if the meeting room is in use
+        if (isMeetingRoomInUse) {
+            // Show the alert with room in use
+            $('#meetingAlert').html('The ' + selectedMeeting + ' is currently in use. Please choose another room.');
+            $('#meetingAlert').show();
+        } else {
+            // Hide the alert if the room is not in use
+            $('#meetingAlert').hide();
+        }
+    });
+});
+</script>
 @endsection

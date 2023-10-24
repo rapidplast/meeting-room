@@ -4,37 +4,35 @@
 
     <head>
         <meta charset="utf-8">
-        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('defaultImage/favico.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('public/defaultImage/favico.png') }}">
         <title>Home Meeting</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
-        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-        <script src="{{ asset('js/main.js') }}"></script>
+        <link href="{{ asset('public/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('public/css/style.css') }}" rel="stylesheet">
+        <script src="{{ asset('public/js/main.js') }}"></script>
         <!-- Favicon -->
-        <link href="img/favicon.ico" rel="icon">
+        <link href="public/img/favicon.ico" rel="icon">
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Rubik:wght@500;600;700&display=swap"
-            rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Rubik:wght@500;600;700&display=swap"rel="stylesheet">
 
         <!-- Icon Font Stylesheet -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
         <!-- Libraries Stylesheet -->
-        <link href="lib/animate/animate.min.css" rel="stylesheet">
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="public/lib/animate/animate.min.css" rel="stylesheet">
+        <link href="public/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
         <!-- Customized Bootstrap Stylesheet -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="public/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="css/style.css" rel="stylesheet">
+        <link href="public/css/style.css" rel="stylesheet">
         <style>
             .btn-primary {
                 background-color: #a20d0d;
@@ -148,15 +146,15 @@
 
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top py-0 pe-5">
-            <a href="/" class="navbar-brand ps-5 me-0" style="background-color: #FFFFFF;">
-                <img src="{{ asset('img/RapidPlast.png') }}" alt="Logo Rapid">
+            <a href="/meeting-room" class="navbar-brand ps-5 me-0" style="background-color: #FFFFFF;">
+                <img src="{{ asset('public/img/RapidPlast.png') }}" alt="Logo Rapid">
             </a>
             <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="/" class="nav-item nav-link active">Home</a>
+                <a href="/meeting-room" class="nav-item nav-link active">Home</a>
                 <div class="dropdown">
                     <a class="nav-item nav-link" href="#" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-expanded="false">
                         Meeting Reservation <i class="dropdown-indicator"></i>
@@ -187,7 +185,7 @@
             <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img class="w-100" src="img/rpd1.jpg" alt="Image">
+                        <img class="w-100" src="public/img/rpd1.jpg" alt="Image">
                         <div class="carousel-caption">
                             <div class="container">
                                 <div class="row justify-content-center">
@@ -200,7 +198,7 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img class="w-100" src="img/rpd2.jpg" alt="Image">
+                        <img class="w-100" src="public/img/rpd2.jpg" alt="Image">
                         <div class="carousel-caption">
                             <div class="container">
                                 <div class="row justify-content-center">
@@ -213,7 +211,7 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img class="w-100" src="img/grup.jpg" alt="Image">
+                        <img class="w-100" src="public/img/grup.jpg" alt="Image">
                         <div class="carousel-caption">
                             <div class="container">
                                 <div class="row justify-content-center">
@@ -246,10 +244,10 @@
                     <div class="col-lg-6">
                         <div class="row gx-3 h-100">
                             <div class="col-8 align-self-start wow fadeInUp" data-wow-delay="0.1s">
-                                <img class="img-fluid" src="{{ asset('img/dynapack.png') }}">
+                                <img class="img-fluid" src="{{ asset('public/img/dynapack.png') }}">
                             </div>
                             <div class="col-8 align-self-end wow fadeInDown" data-wow-delay="0.1s">
-                                <img class="img-fluid" src="{{ asset('img/RapidPlast.png') }}">
+                                <img class="img-fluid" src="{{ asset('public/img/RapidPlast.png') }}">
                             </div>
                         </div>
                     </div>
@@ -378,14 +376,14 @@
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/wow/wow.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="lib/counterup/counterup.min.js"></script>
+        <script src="public/lib/wow/wow.min.js"></script>
+        <script src="public/lib/easing/easing.min.js"></script>
+        <script src="public/lib/waypoints/waypoints.min.js"></script>
+        <script src="public/lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="public/lib/counterup/counterup.min.js"></script>
 
         <!-- Template Javascript -->
-        <script src="js/main.js"></script>
+        <script src="public/js/main.js"></script>
 
         <script>
     function copyPhoneNumber() {
