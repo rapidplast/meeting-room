@@ -14,63 +14,46 @@ use Illuminate\Support\Facades\Http;
 class CalendarController extends Controller
 {
     public function index(Request $request)
-    {   
-
-        // dd($request->input('id_plant'));
-        // print_r($request::all());die;
-        // Mengakses data reservation_id dari Session atau variabel statis yang sudah disimpan
-        $usedReservationIds = Session::get('usedReservationIds', []);
-
-        // Ambil tanggal dari form add
+    {
         $startDate = $request->input('datee');
-        $endDate = $request->input('datee'); // Anda mungkin perlu menyesuaikan ini sesuai kebutuhan
-
+        $endDate = $request->input('datee');
         $id_plant = $request->input('id_plant');
-        // Tambahkan validasi untuk hanya mengambil data reservasi yang setelah tanggal pembuatan
         $reservations = Reservation::with('meeting')
             ->whereBetween('date', [$startDate, $endDate])
-            ->whereDate('date', '>=', now()) // Hanya ambil data dengan tanggal setelah tanggal pembuatan
-            ->where(['status' => 1, 'id_plant' => $id_plant])
+            ->whereDate('date', '>=', now())
+            ->where(['id_plant' => $id_plant])
             ->get();
-
-        $activeReservations = \App\Models\Reservation::where(['status' => 1, 'id_plant' => $id_plant])->get();
+    
+        $activeReservations = \App\Models\Reservation::where(['id_plant' => $id_plant])->get();
         $activeRooms = $activeReservations->isNotEmpty() ? "Meeting Rooms Currently in Use: " : 'No Meeting Rooms are Currently in Use.';
-
+    
         if ($activeReservations->isNotEmpty()) {
             $activeRoomNumbers = $activeReservations->pluck('meeting.meeting_id')->unique();
             foreach ($activeRoomNumbers as $roomNumber) {
                 $activeRooms .= "Meeting Room $roomNumber, ";
             }
-            $activeRooms = rtrim($activeRooms, ', '); // Menghapus koma terakhir
+            $activeRooms = rtrim($activeRooms, ', ');
         }
-        // dd($activeReservations);die;
+        
         $events = [];
-        // dd($reservations);die;
-        // print_r($reservations);die;
         foreach ($reservations as $reservation) {
+            $roomStatus = $reservation->status == 1 ? 'Digunakan' : '';
+            $roomNumber = $reservation->meeting->meeting_id;
+            $tooltip = "Ruang Pertemuan $roomNumber ($roomStatus)";
             
-            if ($reservation->status == 1) { // Hanya tambahkan jika statusnya adalah "digunakan"
-                $roomStatus = 'Digunakan'; // Status ruangan
-                $roomNumber = $reservation->meeting->meeting_id;
-                $tooltip = "Ruang Pertemuan $roomNumber ($roomStatus)";
-
-                $events[] = [
-                    'title' => "Ruang Pertemuan $roomNumber",
-                    // Tampilkan judul tanpa status
-                    'start' => $reservation->date . 'T' . $reservation->reservation_time,
-                    'end' => $reservation->date . 'T' . $reservation->reservation_time_out,
-                    'tooltip' => $tooltip,
-                    // Tambahkan informasi tooltip
-                ];
-            } else {
-                // Debug: Tampilkan informasi reservasi yang tidak digunakan
-                // ini hanya digunakan untuk debugging, hapus saat sudah selesai debugging
-                dd($reservation);
-            }
+            $eventBackgroundColor = $reservation->status == 0 ? '#cccccc' : 'Tidak Digunakan';
+            
+            $events[] = [
+                'title' => "Ruang Pertemuan $roomNumber",
+                'start' => $reservation->date . 'T' . $reservation->reservation_time,
+                'end' => $reservation->date . 'T' . $reservation->reservation_time_out,
+                'tooltip' => $tooltip,
+                'backgroundColor' => $eventBackgroundColor,
+                'nama' => $reservation->nama,  // Menambahkan informasi user
+                'ket' => $reservation->ket,  // Menambahkan informasi deskripsi ruangan meeting
+            ];
         }
-
-        // dd($events);die;
-        // Tampilkan tampilan (view) 'calendar.blade.php' dengan data yang diperlukan
+        
         return view('layouts.calendar', compact('activeReservations', 'events'));
     }
 

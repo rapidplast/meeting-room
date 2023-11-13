@@ -30,9 +30,6 @@ use App\Http\Controllers\CalendarController;
 Route::view('/', 'landing');
 
 Auth::routes();
-
-// Route::get('/', [HomeController::class, 'index']);
-
 Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation.index');
 Route::post('/reservation/store', [ReservationController::class, 'store'])->name('reservation.store');
 Route::get('/reservation/{plant}/show',[ReservationController::class, 'show'])->name('reservation.show');
@@ -40,6 +37,5 @@ Route::get('/reservation/{reservation_id}/edit',[ReservationController::class, '
 Route::put('/reservation/{reservation_id}/update', [ReservationController::class, 'update'])->name('reservation.update');
 Route::delete('/reservation/{reservation_id}/destroy', [ReservationController::class, 'destroy'])->name('reservation.destroy');
 Route::get('/sse', [ReservationController::class, 'sse'])->name('reservation.sse');
-// Route::get('/reservation/{id_plant}/calendar', [ReservationController::class, 'showCalendar'])->name('reservation.calendar');
 Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 Route::get('/meetings/{meeting_id}', [CalendarController::class, 'getMeetingsByMeetingId'])->name('meetings.by.meeting_id');

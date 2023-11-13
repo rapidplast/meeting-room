@@ -2,17 +2,6 @@
 @section('content')
 @include('sweetalert::alert')
 <div>
-    <!-- @if ($message = Session::get('fail'))
-    <div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Failed!!</strong><span> {{ $message }}</span>
-    </div>
-    @elseif ($message = Session::get('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Success!!</strong><span> {{ $message }}</span>
-    </div>
-    @endif -->
 
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -66,13 +55,9 @@
             </div>
             </div>
         </div>
-
-
             {{-- Add Data --}}
             <div class="mx-3" id="formAddReservation" style="display: none;">
-    <center>
-        <h2 class="mb-3">Add Reservation</h2>
-    </center>
+    <center> <h2 class="mb-3">Add Reservation</h2> </center>
     <form method="post" action="{{ route('reservation.store') }}" id="myForm" enctype="multipart/form-data">
         @csrf
         <div class="form-group row">
@@ -93,7 +78,6 @@
         </div>
         </div>
     <div id="meetingAlert" class="alert alert-info" style="display: none;"></div>
-        <!-- ... (form fields for date and time) -->
         <div class="form-group row">
             <label for="ket" class="col-sm-3 col-form-label">Description</label>
             <div class="col-sm-8">
@@ -106,9 +90,6 @@
         </div>
     </form>
 </div>
-
-
-
             {{-- Table --}}
             <div class="table-responsive">
                 <table class="table table-striped table-bordered" id="reservationTable">
@@ -197,19 +178,6 @@
                                             PDF</a>
                                     </div>
                                     <div class="modal-body">
-                                        <!-- <div style="border:2px solid rgba(0,0,0,.125); padding: 10px; border-radius: 10px; margin-bottom: 15px">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Customer</h5>
-                                            <div style="display: flex; justify-content: space-between">
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">Name :{{$reservation->pegawai->name}}</li>
-                                                    <li class="list-group-item">E-Mail :{{$reservation->customer->email}}</li>
-                                                    <li class="list-group-item">Phone :{{$reservation->customer->phone}}</li>
-                                                    <li class="list-group-item">Reservation Time
-                                                        :{{$reservation->reservation_time}}</li>                                                        
-                                                </ul>
-                                                <img class="float-right my-2" width="170px" height="170px" style="border-radius: 10%" src="{{asset('storage/'.$reservation->customer->image)}}">
-                                            </div>
-                                        </div> -->
                                         <div style="border:2px solid rgba(0,0,0,.125); padding: 10px; border-radius: 10px; margin-bottom: 15px">
                                             <h5 class="modal-title" id="exampleModalLongTitle">Services</h5>
                                             <div>
@@ -238,47 +206,36 @@
     </div>
 </div>
 <style>
-/* CSS untuk form edit reservation */
 #formAddReservation {
-    border: 1px solid #ddd; /* Menambahkan garis tepi */
-    padding: 20px; /* Menambahkan padding agar form terlihat lebih lega */
-    border-radius: 5px; /* Mengatur sudut elemen form */
-    background-color: #f9f9f9; /* Mengatur warna latar belakang */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Menambahkan efek bayangan */
+    border: 1px solid #ddd;
+    padding: 20px; 
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 #formAddReservation label {
     font-weight: bold;
-    margin-top: 5px; /* Mengurangi jarak atas label */
+    margin-top: 5px;
 }
 
-/* Styling untuk kolom input */
 #formAddReservation .form-control {
-    margin-top: 5px; /* Mengurangi jarak atas kolom input */
+    margin-top: 5px;
 }
-
-/* Styling untuk tombol "Update" dan "Cancel" */
 #formAddReservation button[type="submit"],
-
-/* Tambahan styling sesuaikan dengan kebutuhan desain Anda */
-/* Container styles */
 #formAddReservation {
         border: 1px solid #ddd !important;
         padding: 20px !important;
         border-radius: 5px !important;
         background-color: #fff !important;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1) !important;
-        max-width: 400px !important; /* Adjust the width as needed */
-        margin: 0 auto !important; /* Center the form horizontally */
+        max-width: 400px !important;
+        margin: 0 auto !important;
     }
-
-    /* Form label styles */
     #formAddReservation label {
         font-weight: bold !important;
         margin-bottom: 5px !important;
     }
-
-    /* Form input styles */
     #formAddReservation .form-control {
         margin-bottom: 15px !important;
         padding: 10px !important;
@@ -286,8 +243,6 @@
         border-radius: 4px !important;
         width: 100% !important;
     }
-
-    /* Button styles */
     #formAddReservation button[type="submit"] {
         background-color: #007bff !important;
         color: #fff !important;
@@ -296,12 +251,9 @@
         border-radius: 4px !important;
         cursor: pointer !important;
     }
-
     #formAddReservation button[type="submit"]:hover {
         background-color: #0056b3 !important;
     }
-
-    /* Back button style */
     #formAddReservation a.btn-primary.btn-outline-primary {
         background-color: transparent !important;
         color: #007bff !important;
@@ -311,7 +263,6 @@
         text-decoration: none !important;
         margin-right: 10px !important;
     }
-
     #formAddReservation a.btn-primary.btn-outline-primary:hover {
         background-color: #007bff !important;
         color: #fff !important;
@@ -325,8 +276,6 @@ $(document).ready(function() {
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
-<!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="lib/wow/wow.min.js"></script>
@@ -334,15 +283,12 @@ $(document).ready(function() {
         <script src="lib/waypoints/waypoints.min.js"></script>
         <script src="lib/owlcarousel/owl.carousel.min.js"></script>
         <script src="lib/counterup/counterup.min.js"></script>
-
-        <!-- Template Javascript -->
         <script src="js/main.js"></script>
 <script>
 $("document").ready(function(){
     setTimeout(function(){
        $("div.alert").remove();
-    }, 3000 ); 
-
+    }, 3000 );
 });
     </script>
 <script>
@@ -378,18 +324,15 @@ $("document").ready(function(){
 <script>
 function validateTimeInput(inputElement) {
     const timeRegex = /^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)$/i; // Format HH:MM AM/PM
-
     if (!inputElement.value.match(timeRegex)) {
         alert('Invalid time format. Please use HH:MM AM/PM format.');
-        inputElement.value = ''; // Menghapus nilai input yang salah
-        inputElement.focus(); // Memfokuskan kembali ke input yang salah
+        inputElement.value = '';
+        inputElement.focus();
     }
 }
-
 document.getElementById('reservation_time').addEventListener('blur', function() {
     validateTimeInput(this);
 });
-
 document.getElementById('reservation_time_out').addEventListener('blur', function() {
     validateTimeInput(this);
 });
@@ -398,25 +341,21 @@ document.getElementById('reservation_time_out').addEventListener('blur', functio
 $(document).ready(function() {
     $('#reservationTable').DataTable();
 });
-
 function validateTimeInput(inputElement) {
-    const timeRegex = /^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)$/i; // Format HH:MM AM/PM
+    const timeRegex = /^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)$/i;
 
     if (!inputElement.value.match(timeRegex)) {
         alert('Invalid time format. Please use HH:MM AM/PM format.');
-        inputElement.value = ''; // Menghapus nilai input yang salah
-        inputElement.focus(); // Memfokuskan kembali ke input yang salah
+        inputElement.value = '';
+        inputElement.focus();
     }
 }
-
 document.getElementById('reservation_time').addEventListener('blur', function() {
     validateTimeInput(this);
 });
-
 document.getElementById('reservation_time_out').addEventListener('blur', function() {
     validateTimeInput(this);
 });
-
 function showFormAddReservation() {
     console.log('OK')
     var formAdd = document.getElementById('formAddReservation');
@@ -433,7 +372,6 @@ function showFormAddReservation() {
         header.style.display = "block";
     }
 }
-
 function hideForm() {
     console.log('OK')
     var formAdd = document.getElementById('formAddReservation');
@@ -446,7 +384,6 @@ function hideForm() {
     }
 }
 </script>
-
 <script>
 @if (Session::has('success'))
     Swal.fire({
@@ -455,7 +392,6 @@ function hideForm() {
         text: '{{ Session::get('success') }}',
     });
 @endif
-
 @if (Session::has('fail'))
     Swal.fire({
         icon: 'error',
@@ -464,28 +400,16 @@ function hideForm() {
     });
 @endif
 </script>
-
 <script>
 $(document).ready(function() {
-    // Get the select input element
     var selectMeeting = $('#meeting_id');
-
-    // Listen for changes in the select input
     selectMeeting.change(function() {
-        // Get the selected meeting room
         var selectedMeeting = selectMeeting.find(":selected").text();
-
-        // Simulate an AJAX call to check if the meeting room is in use
-        // Replace this with your actual logic to check if the room is in use
         var isMeetingRoomInUse = false;
-
-        // Check if the meeting room is in use
         if (isMeetingRoomInUse) {
-            // Show the alert with room in use
             $('#meetingAlert').html('The ' + selectedMeeting + ' is currently in use. Please choose another room.');
             $('#meetingAlert').show();
         } else {
-            // Hide the alert if the room is not in use
             $('#meetingAlert').hide();
         }
     });

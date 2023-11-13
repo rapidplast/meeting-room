@@ -6,18 +6,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('defaultImage/favico.png') }}">
 </head>
 <div>
-    <!-- @if ($message = Session::get('fail'))
-    <div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Gagal!!</strong><span> {{ $message }}</span>
-    </div>
-    @elseif ($message = Session::get('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Sukses!!</strong><span> {{ $message }}</span>
-    </div>
-    @endif -->
-
     @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Whoops!</strong> Ada beberapa masalah dengan inputan Anda.<br><br>
@@ -34,10 +22,6 @@
         <div class="mt-3 ml-3">
             <div class="page-header-title">
                 <i class="icofont icofont-table bg-c-blue"></i>
-                <!-- <div class="d-inline">
-                    <h4>Meeting Room Reservations</h4>
-                    <span>Here is the list of Reservations in Meeting Room</span>
-                </div> -->
             </div>
         </div>
         <div class="card-header-right">
@@ -121,39 +105,24 @@
         </div>
     </div>
     <style>
-        /* CSS untuk form edit reservation */
         #formEditReservation {
             border: 1px solid #ddd;
-            /* Menambahkan garis tepi */
             padding: 20px;
-            /* Menambahkan padding agar form terlihat lebih lega */
             border-radius: 5px;
-            /* Mengatur sudut elemen form */
             background-color: #f9f9f9;
-            /* Mengatur warna latar belakang */
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            /* Menambahkan efek bayangan */
         }
 
         #formEditReservation label {
             font-weight: bold;
             margin-top: 5px;
-            /* Mengurangi jarak atas label */
         }
-
-        /* Styling untuk kolom input */
         #formEditReservation .form-control {
             margin-top: 5px;
-            /* Mengurangi jarak atas kolom input */
         }
-
-        /* Styling untuk tombol "Update" dan "Cancel" */
         #formEditReservation button[type="submit"],
-
-        /* Tambahan styling sesuaikan dengan kebutuhan desain Anda */
     </style>
     <style>
-        /* Container styles */
         #formEditReservation {
             border: 1px solid #ddd !important;
             padding: 20px !important;
@@ -164,14 +133,10 @@
             margin: 0 auto !important; /* Center the form horizontally */
             margin-bottom: 30px !important;
         }
-
-        /* Form label styles */
         #formEditReservation label {
             font-weight: bold !important;
             margin-bottom: 5px !important;
         }
-
-        /* Form input styles */
         #formEditReservation .form-control {
             margin-bottom: 15px !important;
             padding: 10px !important;
@@ -179,7 +144,6 @@
             border-radius: 4px !important;
             width: 100% !important;
         }
-        
     </style>
     <script>
         function reloadPage() {
@@ -225,5 +189,4 @@
             }
         }
     </script>
-
     @endsection

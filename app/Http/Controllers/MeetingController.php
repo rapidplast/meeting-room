@@ -18,7 +18,6 @@ class MeetingController extends Controller
         } else {
             $Meeting = Meeting::with('categoryService')->get();
         }
-        // $categoryService = CategoryService::all();
         return view('admin.service', compact('service', 'categoryService'));
     }
 
@@ -27,13 +26,6 @@ class MeetingController extends Controller
         $Meeting = Meeting::with('categoryService')->get();
         return view('customer.service', compact('services'));
     }
-
-
-    public function create()
-    {
-        //
-    }
-
 
     public function store(Request $request)
     {
@@ -56,19 +48,12 @@ class MeetingController extends Controller
     }
 
 
-    public function show(Meeting $Meeting)
-    {
-    }
-
-
     public function edit($service_id)
     {
         $Meeting = Meeting::where('meeting_id', $service_id)
             ->first();
-        // $categoryService = CategoryService::all();
         return view('admin.serviceEdit', ['service' => $Meeting]);
     }
-
 
     public function update(Request $request, $idservice)
     {
@@ -89,14 +74,4 @@ class MeetingController extends Controller
         return redirect()->route('service.index')
             ->with('success', 'Service Successfully Updated');
     }
-
-
-    // public function destroy($idservice)
-    // {
-    //     $Meeting = Meeting::where('service_id', $idservice)->first();
-
-    //     $Meeting->delete();
-    //     return redirect()->route('service.index')
-    //         ->with('success', 'Service seccesfully Deleted');
-    // }
 }

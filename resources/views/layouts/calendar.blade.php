@@ -10,12 +10,9 @@
     <link href="{{ asset('public/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('public/css/style.css') }}" rel="stylesheet">
     <script src="{{ asset('public/js/main.js') }}"></script>
-    <!-- Favicon -->
     <link href="{{ asset('public/img/favicon.ico') }}" rel="icon">
-    <!-- DataTables CSS dan JS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
-    <!-- Libraries Stylesheet -->
     <link href="{{ asset('public/lib/animate/animate.min.css') }}" rel="stylesheet">
     <link href="{{ asset('public/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
     <!-- Customized Bootstrap Stylesheet -->
@@ -68,11 +65,8 @@
             </div>
         </div>
     </div>
-    <!-- Topbar End -->
-
-    <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top py-0 pe-5">
-        <a href="/" class="navbar-brand ps-5 me-0" style="background-color: #FFFFFF;">
+        <a href="calendar?id_plant" class="navbar-brand ps-5 me-0" style="background-color: #FFFFFF;">
             <img src="{{ asset('public/img/RapidPlast.png') }}" alt="Logo Rapid">
         </a>
         <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -84,10 +78,7 @@
             </div>
         </div>
     </nav>
-    <!-- Navbar End -->
-
     <div class="container-fluid">
-        <!-- Content Row -->
         <div class="card shadow">
             <div class="card-header">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -95,118 +86,133 @@
                 </div>
             </div>
             <div class="card-body">
-                <!-- Calendar will be rendered here -->
                 <div id='calendar'></div>
-                <!-- Calendar will be rendered here -->
         </div>
-        <!-- Content Row -->
     </div>
     
     <style>
-        /* Mengatur teks ke tengah, mengubah ukuran font, menambahkan gaya font yang menarik, dan mengatur latar belakang tulisan menjadi transparan */
-        .fc-event-title {
-            font-size: 18px; /* Ubah ukuran font sesuai keinginan Anda */
-            margin-top: 0px; /* Jarak antara teks dengan elemen event */
-            font-family: sans-serif;
-            background-color:#ff0000; /* Warna latar belakang transparan (RGBA) */
-            padding: 0px 0px; /* Padding untuk menambahkan ruang di sekitar teks */
-            border-radius: 5px; /* Membuat sudut elemen agak melengkung */
-        }
-        .fc-day-today {
-        background-color: #f0f0f0 !important; /* Ganti dengan warna abu-abu muda sesuai keinginan Anda */
-        }
-        /* Mengubah warna outline (border) event menjadi abu-abu muda */
-        .fc-event-main {
-            border-color: #f0f0f0 !important; /* Ganti dengan warna abu-abu muda sesuai keinginan Anda */
-        }
+    .fc-event-title {
+        font-size: 18px;
+        margin-top: 0px;
+        font-family: sans-serif;
+        padding: 0px 0px;
+        border-radius: 5px;
+    }
+    .fc-day-today {
+        background-color: #f0f0f0 !important;
+    }
+    .fc-event-main {
+        border-color: #f0f0f0 !important;
+    }
+    .fc-event-title.used-room {
+        background-color: #ff0000;
+        color: white;
+    }
+    .done-room {
+        color: white;
+        background-color: #A9A9A9 !important;
+    }
+    .custom-btn-style {
+        background-color: #a20d0d !important; 
+        color: #fff !important; 
+    }
+    .custom-icon-style {
+        background-color: #a20d0d !important;
+    }
     </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Ambil data reservasi aktif Anda dalam format JSON
-            var activeReservations = {!! json_encode($activeReservations) !!};
-            // console.log(activeReservations)
-            // Ubah data reservasi menjadi format event yang sesuai
-            var events = activeReservations.map(function (reservation) {
-                // console.log(reservation);
-                var plantId = reservation.id_plant; // Ambil id_plant dari data reservasi
-                var roomNumber = reservation.meeting.meeting_id;
-                var roomStatus = 'Digunakan'; // Status ruangan
-                var tooltip = "Meeting Room " + roomNumber + " (Plant " + plantId + " - " + roomStatus + ")";
-                
-                var rt = reservation.reservation_time;
-                const datess = new Date(rt);
+    document.addEventListener('DOMContentLoaded', function () {
+    var activeReservations = {!! json_encode($activeReservations) !!};
+    var events = activeReservations.map(function (reservation) {
+        var plantId = reservation.id_plant;
+        var roomNumber = reservation.meeting.meeting_id;
+        var roomStatus = 'Digunakan';
+        var tooltip = "Meeting Room " + roomNumber + " (Plant " + plantId + " - " + roomStatus + ")";
 
-                // Get the hour and minutes
-                const hour = datess.getHours(); // Returns the hour (0-23)
-                const minutes = datess.getMinutes();
+        var rt = reservation.reservation_time;
+        const datess = new Date(rt);
+        const hour = datess.getHours();
+        const minutes = datess.getMinutes();
+        let newdates = new Date(reservation.date);
+        newdates.setHours(hour);
+        newdates.setMinutes(minutes);
+        let newdatesOut = new Date(reservation.date);
+        let rto = reservation.reservation_time_out;
+        const [hours, minutess, secondss] = rto.split(":").map(Number);
+        newdatesOut.setHours(hours);
+        newdatesOut.setMinutes(minutess);
+        return {
+            title: roomNumber,
+            start: newdates,
+            end: newdatesOut,
+            tooltip: tooltip,
+            is_used: 1,
+            status: reservation.status, // Tambahkan status ruang pertemuan ke dalam events
+            nama: reservation.nama, // Tambahkan informasi user
+            ket: reservation.ket // Tambahkan informasi deskripsi ruangan meeting
+        };
+    });
 
-                // console.log(hour+":"+minutes)
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridDay',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'timeGridDay,timeGridWeek,dayGridMonth'
+        },
+        events: events,
+        eventClick: function (info) {
+            var event = info.event;
+            var title = event.title;
+            var status = event.extendedProps.status === 0 ? 'Done' : 'Used';
+            var nama = event.extendedProps.nama;
+            var ket = event.extendedProps.ket;
 
-                // console.log(reservation.reservation_time)
-                // console.log(reservation.date)
+            var message = '<strong>Meeting Room ' + title + '</strong><br>';
+            message += 'Status : ' + status + '<br>';
+            message += 'User : ' + nama + '<br>';
+            message += 'Keterangan : ' + ket;
 
-                let newdates = new Date(reservation.date);
-
-                newdates.setHours(hour)
-                newdates.setMinutes(minutes)
-
-                let newdatesOut = new Date(reservation.date);
-                let rto = reservation.reservation_time_out;
-                // const dose = new Date(rto);
-                // console.log(rto)
-                const [hours, minutess, secondss] = rto.split(":").map(Number);
-
-                // const hourd = dose.getHours();
-                // const minutesd = dose.getMinutes();
-                newdatesOut.setHours(hours);
-                newdatesOut.setMinutes(minutess)
-
-                // console.log(newdates)
-                // console.log(newdatesOut)
-                return {
-                    title: roomNumber,
-                    start: newdates,
-                    end: newdatesOut,
-                    tooltip: tooltip, // Gunakan tooltip untuk menampilkan id_plant
-                    is_used: 1, // Anda dapat menambahkan properti tambahan sesuai kebutuhan
-                };
-                // console.log(plantId);
-            });
-
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'timeGridDay',
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'timeGridDay,timeGridWeek,dayGridMonth'
-                },
-                events: events, // Gunakan array events yang sudah dibuat
-                eventClick: function (info) {
-                    // Tambahkan logika ketika event di klik (opsional)
-                    alert('Ruang ' + info.event.title + ' Diklik');
-                },
-                eventContent: function (arg) {
-                var content = document.createElement('div');
-                content.innerText = 'Meeting Room ' + arg.event.title ;
-                content.classList.add('fc-event-title');
-                    // Tambahkan class 'used-room' untuk ruangan yang digunakan
-                    if (arg.event.extendedProps.is_used === 1) {
-                        content.classList.add('used-room');
-
-                        // Tambahkan status ruangan ke dalam elemen
-                        var statusElement = document.createElement('div');
-                        statusElement.innerHTML = 'Used';
-                        statusElement.classList.add('room-status');
-                        content.appendChild(statusElement);
-                    }
-
-                    return { domNodes: [content] };
+            Swal.fire({
+                html: message,
+                icon: 'info',
+                confirmButtonText: 'OK',
+                customClass: {
+                    confirmButton: 'custom-btn-style' ,
+                    iconButton: 'custom-icon-style',
                 }
             });
+        },
 
-            calendar.render();
-        });
-    </script>
+        eventContent: function (arg) {
+            var content = document.createElement('div');
+            content.innerText = 'Meeting Room ' + arg.event.title;
+            content.classList.add('fc-event-title');
+
+            if (arg.event.status === 0) {
+                content.classList.add('done-room');
+                var statusElement = document.createElement('div');
+                statusElement.innerHTML = '';
+                statusElement.classList.add('room-status');
+                content.appendChild(statusElement);
+            } else if (arg.event.extendedProps.is_used === 1) {
+                content.classList.add('used-room');
+                var statusElement = document.createElement('div');
+                statusElement.innerHTML = '';
+                statusElement.classList.add('room-status');
+                content.appendChild(statusElement);
+            }
+
+            return { domNodes: [content] };
+        }
+    });
+
+    calendar.render();
+});
+</script>
 </body>
 </html>

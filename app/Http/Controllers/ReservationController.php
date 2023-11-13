@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -21,22 +20,18 @@ use PDF;
 
 class ReservationController extends Controller
 {
-
     public function index(Request $request)
 {
-    // Perbarui status reservasi berdasarkan waktu
     $now = Carbon::now();
     Reservation::where('reservation_time_out', '<', $now)->update(['status' => 0]);
-
-    // Pesan untuk memberitahu pengguna untuk me-refresh halaman
     $message = 'Status Reservasi telah diperbarui';
     session(['refresh_message' => $message]);
-
-    // Ambil data reservasi yang sudah selesai
     $reservationTimeout = Reservation::where('reservation_time_out', '<', $now)->max('reservation_time_out');
-
-    // Ambil data reservasi dari database
-    $reservations = Reservation::with('plant')->where('id_plant', '=', $request->id_plant)->get();
+    $reservations = Reservation::with('plant')
+        ->where('id_plant', '=', $request->id_plant)
+        ->orderBy('date', 'desc')
+        ->orderBy('reservation_time', 'desc')
+        ->get();
     $meeting = Meeting::all();
     $plant = Plant::all();
 
@@ -68,7 +63,6 @@ class ReservationController extends Controller
         $datapost['reservation_time_out'] = $reservation_time_out;
         $datapost['ket'] = $request->ket;
 
-        // Mengecek apakah ada reservasi yang tumpang tindih di plant yang sama
         $overlappingReservations = Reservation::where('id_plant', $request->id_plant)
             ->where('meeting_id', $request->meeting_id)
             ->where('date', $request->date)
@@ -86,8 +80,6 @@ class ReservationController extends Controller
         if ($overlappingReservations > 0) {
             return redirect()->back()->with('fail', 'Ruangan pertemuan sudah dipesan untuk waktu yang dipilih.');
         }
-
-        // Mengecek apakah ruangan sedang digunakan saat ini di plant yang sama
         $now = Carbon::now();
         $currentReservations = Reservation::where('id_plant', $request->id_plant)
             ->where('meeting_id', $request->meeting_id)
@@ -99,100 +91,22 @@ class ReservationController extends Controller
         if ($currentReservations > 0) {
             return redirect()->back()->with('warning', 'Ruangan pertemuan sedang digunakan saat ini.');
         }
-
-        // Menggabungkan tanggal dan waktu untuk membuat string datetime
         $reservation_datetime = Carbon::parse($request->date . ' ' . $request->reservation_time_out);
-
-        // Mengecek apakah waktu reservasi berada di masa lalu
         if ($now > $reservation_datetime) {
-            $status = 0; // Waktu telah berlalu, status "Selesai"
+            $status = 0;
         } else {
-            $status = 1; // Waktu mendatang atau saat ini, status "Digunakan"
+            $status = 1;
         }
-
         $datapost['status'] = $status;
 
         Reservation::create($datapost);
 
-        // Mengarahkan pengguna kembali ke halaman reservation all sesuai dengan plantnya
-        return redirect()->route('reservation.index', ['id_plant' => $request->id_plant])->with('success', 'Reservasi Baru Ditambahkan dengan Sukses');
+        return redirect()->route('reservation.index',
+        ['id_plant' => $request->id_plant])->with('success', 'Reservasi Baru Ditambahkan dengan Sukses');
     } catch (\Exception $th) {
         return redirect()->back()->with('fail', $th->getMessage());
     }
 }
-    
-    //     public function store(Request $request)
-    // {
-
-    //     $reservation = Reservation::all();
-    //     $meet = Meeting::all()->first();
-    //     $nama = $request->get('nama');
-    //     $service_id = $request->get('meeting_id');
-    //     $user_id = $request->get('user_id');
-    //     $date = $request->get('datee');
-    //     $time_in = $request->get('reservation_time');
-    //     $time_out = $request->get('reservation_time_out');
-    //     $ket = $request->get('ket');
-    //     $now = Carbon::now()->format('Y-m-d');
-
-    //     if (empty($service_id)) {
-    //         if ($request->get('pegawai')) {
-    //             return redirect()->route('reservationCustomer')
-    //                 ->with('failr', 'Check the service');
-    //         } else {
-    //             return redirect()->route('reservation.index')
-    //                 ->with('fail', 'Check the service');
-    //         }
-    //     } else {
-    //         foreach ($reservation as $data) {
-    //             $meet = Reservation::where([['date', $now], ['status', 0]])->first();
-
-    //             if (!empty($meet)) {
-    //                 if (($date == $meet->date) && ($request->meeting_id == $meet->meeting_id)) {
-    //                     if ($request->reservation_time >= $meet->reservation_time) {
-    //                         if ($request->reservation_time <= $meet->reservation_time_out) {
-    //                             // Meeting Time Out has not passed, create a new reservation with status "Dipakai"
-    //                             $reservation_code = $this->checkIfAva();
-    //                             $total = 0;
-    //                             $reservation = new Reservation;
-    //                             $customer = User::where('user_id', $user_id)->first();
-    //                             $reservation->nama = $nama;
-    //                             $reservation->user_id = 1;
-    //                             $reservation->meeting_id = $request->meeting_id;
-    //                             $reservation->date = $date;
-    //                             $reservation->reservation_time = $time_in;
-    //                             $reservation->reservation_time_out = $time_out;
-    //                             $reservation->ket = $ket;
-    //                             $reservation->status = 1; // Status "Dipakai"
-    //                             $reservation->save();
-    //                             return redirect()->route('reservation.index')->with('success', 'New Reservation Added Succesfully');
-    //                         }
-    //                     }
-    //                 }
-    //             }
-
-    //             $reservation_code = $this->checkIfAva();
-    //             $total = 0;
-    //             $reservation = new Reservation;
-    //             $customer = User::where('user_id', $user_id)->first();
-    //             $reservation->nama = $nama;
-    //             $reservation->user_id = 1;
-    //             $reservation->meeting_id = $request->meeting_id;
-    //             $reservation->date = $date;
-    //             $reservation->reservation_time = $time_in;
-    //             $reservation->reservation_time_out = $time_out;
-    //             $reservation->ket = $ket;
-    //             $reservation->status = 1;
-    //             $reservation->save();
-    //             return redirect()->route('reservation.index')->with('success', 'New Reservation Added Succesfully');
-    //         }
-
-    //         return redirect()->route('reservation.index')->with('success', 'New Reservation Added Succesfully');
-    //     }
-    // }
-
-
-
     public function checkIfAva()
     {
         $reservations = Reservation::all();
@@ -214,7 +128,6 @@ class ReservationController extends Controller
     }
     public function random_strings($length_of_string)
     {
-        // String of all alphanumeric character
         $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
         return substr(
             str_shuffle($str_result),
@@ -230,7 +143,7 @@ class ReservationController extends Controller
         $user = User::all();
         $plant = Plant::all();
 
-        return view('admin.reservationEdit', compact('reservation', 'plant', 'meeting', 'reservation')); // Pastikan $reservations disertakan di sini
+        return view('admin.reservationEdit', compact('reservation', 'plant', 'meeting', 'reservation'));
     }
 
     public function update(Request $request, $reservation_id)
@@ -259,51 +172,23 @@ class ReservationController extends Controller
             $now = Carbon::now();
 
             if ($now > $reservation_datetime) {
-                $status = 0; // Past datetime, status is "Done"
+                $status = 0;
             } else {
-                $status = 1; // Future or present datetime, status is "Used"
+                $status = 1;
             }
 
             $datapost['status'] = $status;
+            $datapost['nama'] = $request->nama;  // Menambahkan informasi user
+            $datapost['ket'] = $request->ket;  // Menambahkan informasi deskripsi ruangan meeting
 
             Reservation::where(['reservation_id' => $reservation_id])->update($datapost);
 
-            // Mengarahkan pengguna kembali ke halaman reservation all sesuai dengan plantnya
-            return redirect()->route('reservation.index', ['id_plant' => $request->id_plant])->with('success', 'Reservation Updated Successfully');
+            return redirect()->route('reservation.index',
+            ['id_plant' => $request->id_plant])->with('success', 'Reservation Updated Successfully');
         } catch (\Exception $th) {
             return redirect()->back()->with('fail', $th->getMessage());
         }
     }
-
-    // public function update(Request $request, $reservation_id)
-    // {
-    //     $request->validate([
-    //         'plant' => 'required',
-    //         'nama' => 'required',
-    //         'meeting_id' => 'required',
-    //         'date' => 'required',
-    //         'reservation_time' => 'required',
-    //         'reservation_time_out' => 'required',
-    //         // 'ket' => 'required',
-    //     ]);  
-
-    //     try {
-    //         $reservation = Reservation::findOrFail($reservation_id);
-    //         $reservation->nama = $request->nama;
-    //         $reservation->meeting_id = $request->meeting_id;
-    //         $reservation->date = $request->datee;
-    //         $reservation->reservation_time = $request->reservation_time;
-    //         $reservation->reservation_time_out = $request->reservation_time_out;
-    //         $reservation->ket = $request->ket;
-    //         $reservation->save();
-
-    //         return redirect()->route('reservation.index')->with('success', 'Reservation updated successfully');
-    //     } catch (\Exception $e) {
-    //         // Tangani kesalahan yang terjadi selama pembaruan.
-    //         return redirect()->back()->with('fail', 'Failed to update reservation. Please try again.');
-    //     }
-    // }
-
     public function destroy($reservation_id)
     {
         $reservation = Reservation::find($reservation_id);
@@ -331,22 +216,17 @@ class ReservationController extends Controller
 
     public function showMeetingRoomReservations(Request $request)
     {
-        // Misalkan Anda memiliki data waktu mulai dan waktu selesai yang Anda dapatkan dari database
-        $meetingRoomIsUsed = $this->checkMeetingRoomAvailability($request->id_plant, $request->meeting_id, $request->date, $request->reservation_time, $request->reservation_time_out);
+        $meetingRoomIsUsed = $this->checkMeetingRoomAvailability($request->id_plant,
+        $request->meeting_id, $request->date, $request->reservation_time, $request->reservation_time_out);
         $meetingTimeIn = $request->reservation_time;
         $meetingTimeOut = $request->reservation_time_out;
 
-        // Kemudian kirimkan variabel ini ke tampilan Anda
         return view('meeting-room-reservations', compact('meetingRoomIsUsed', 'meetingTimeIn', 'meetingTimeOut'));
     }
-
-    // Fungsi untuk memeriksa ketersediaan ruangan pertemuan pada waktu yang dipilih
     private function checkMeetingRoomAvailability($idPlant, $meetingId, $date, $reservationTime, $reservationTimeOut)
     {
         $reservationDateTime = Carbon::parse($date . ' ' . $reservationTime);
         $reservationDateTimeOut = Carbon::parse($date . ' ' . $reservationTimeOut);
-
-        // Mengecek apakah ada reservasi yang tumpang tindih di plant yang sama
         $overlappingReservations = Reservation::where('id_plant', $idPlant)
             ->where('meeting_id', $meetingId)
             ->where('date', $date)
@@ -362,10 +242,8 @@ class ReservationController extends Controller
             ->count();
 
         if ($overlappingReservations > 0) {
-            return false; // Ruangan pertemuan sudah dipesan untuk waktu yang dipilih
+            return false;
         }
-
-        // Mengecek apakah ruangan sedang digunakan saat ini di plant yang sama
         $now = Carbon::now();
         $currentReservations = Reservation::where('id_plant', $idPlant)
             ->where('meeting_id', $meetingId)
@@ -375,42 +253,9 @@ class ReservationController extends Controller
             ->count();
 
         if ($currentReservations > 0) {
-            return false; // Ruangan pertemuan sedang digunakan saat ini
+            return false;
         }
 
-        return true; // Ruangan tersedia pada waktu yang dipilih
+        return true;
     }
-
-    
-
-    // public function calender(Request $request, $id_plant)
-    // {
-    //     $currentMeetingDate = $request->session()->get('currentMeetingDate');
-        
-    //     $reservations = Reservation::whereDate('reservation_time', '=', $currentMeetingDate)
-    //         ->where('id_plant', $id_plant) // Filter berdasarkan id_plant
-    //         ->get();
-
-    //     $events = [];
-
-    //     foreach ($reservations as $reservation) {
-    //         if ($reservation->status == 1) {
-    //             $roomStatus = 'Digunakan';
-    //             $roomNumber = $reservation->meeting->meeting_id;
-    //             $tooltip = "Meeting Room $roomNumber ($roomStatus)";
-
-    //             $events[] = [
-    //                 'title' => "Meeting Room $roomNumber",
-    //                 'start' => $reservation->reservation_time,
-    //                 'end' => $reservation->reservation_time_out,
-    //                 'tooltip' => $tooltip,
-    //             ];
-    //         }
-    //     }
-    //     dd($reservations);
-    //     return view('layouts.calendar', compact('currentMeetingDate', 'events'));
-    // }
-
-    
-
 }
