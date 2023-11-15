@@ -287,7 +287,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h5 class="text-white mb-4">Quick Links</h5>
-                        <a class="btn btn-link" href="{{ route('reservation.index') }}">Meeting Reservation</a>
+                        <a class="btn btn-link" href="">Meeting Reservation</a>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h5 class="text-white mb-4">Business Hours</h5>
