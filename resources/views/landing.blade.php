@@ -268,9 +268,8 @@
                     <div class="col-lg-3 col-md-6">
                         <h5 class="text-white mb-4">Our Office</h5>
                         <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i> Plant 1: Jl. Berbek Industri V No.10, Bebek, Berbek, Kec. Waru, Kabupaten Sidoarjo, Jawa Timur 61256 </p>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Plant 2: Jl. Berbek Industri V No.21, Bebek, Berbek, Kec. Waru, Kabupaten Sidoarjo, Jawa Timur, 61256 </p>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Plant 2 & 4: Jl. Raya Surabaya - Malang No.54, Palang, Lemahbang, Sukorejo, Pasuruan Regency, Jawa Timur, 67161 </p>
                         <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Plant 3: Jl. Jababeka IX Blok E 9 - 17 Bekasi, Jawa Barat, 17520 </p>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Plant 4: Jl. Raya Surabaya - Malang No.54, Palang, Lemahbang, Sukorejo, Pasuruan Regency, Jawa Timur, 67161 </p>
                         <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Plant 5: Jl. Kranji No.2b, Cicau, Central Cikarang, Bekasi Regency, Jawa Barat, 17530 </p>
                         <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>(031)8436669</p>
                         <p class="mb-2"><i class="fa fa-envelope me-3"></i>hrd@rapidplast.co</p>
