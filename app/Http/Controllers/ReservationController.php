@@ -27,6 +27,9 @@ class ReservationController extends Controller
     $message = 'Status Reservasi telah diperbarui';
     session(['refresh_message' => $message]);
     $reservationTimeout = Reservation::where('reservation_time_out', '<', $now)->max('reservation_time_out');
+
+    $selectedPlant = Plant::find($request->id_plant);
+
     $reservations = Reservation::with('plant')
         ->where('id_plant', '=', $request->id_plant)
         ->orderBy('date', 'desc')
@@ -35,7 +38,7 @@ class ReservationController extends Controller
     $meeting = Meeting::all();
     $plant = Plant::all();
 
-    return view('admin.reservationIndex', compact('reservations', 'meeting', 'plant', 'reservationTimeout'));
+    return view('admin.reservationIndex', compact('reservations', 'meeting', 'plant', 'reservationTimeout', 'selectedPlant', 'request'));
 }
 
     public function store(Request $request)

@@ -17,7 +17,7 @@
             <div class="page-header-title">
             <i class="icofont icofont-table bg-c-blue"></i>
             <div class="d-inline" style="text-align:center">
-                <h2>Meeting Room Reservations</h2>
+                <h2>Meeting Reservation {{ $selectedPlant ? $selectedPlant->name : 'All Plants' }}</h2>
                 </div>
             </div>
             <div class="card-header-right">
@@ -68,7 +68,14 @@
                     <select name="meeting_id" id="meeting_id" class="form-control">
                     <option value="" selected disabled>===== Choose Meeting Room =====</option>
                     @foreach($meeting as $data)
-                    <option value="{{$data->meeting_id}}">{{$data->name}}</option>
+                        @php
+                            $meetingRoomName = $data->name;
+                            // Check if the plant is Plant 2 and the meeting room is Meeting Room 2
+                            if ($request->id_plant == 2 && $data->meeting_id == 3) {
+                                $meetingRoomName .= ' (Lobby)';
+                            }
+                        @endphp
+                        <option value="{{$data->meeting_id}}">{{$meetingRoomName}}</option>
                     @endforeach
                     </select>
                 </div>
@@ -143,7 +150,13 @@
                         <td>{{date('H:i',strtotime($reservation->reservation_time))}}</td>
                         <td>{{date('H:i',strtotime($reservation->reservation_time_out))}}</td>
                         <td>{{$reservation->ket}}</td>
-                        <td>{{$reservation->meeting->name}}</td>
+                        <td>
+                            @if($reservation->id_plant == 2 && $reservation->meeting_id == 3)
+                                {{$reservation->meeting->name}} (Lobby)
+                            @else
+                                {{$reservation->meeting->name}}
+                            @endif
+                        </td>
                         <td>{{$reservation->nama}}</td>
                         <td>
                             <div id="status{{$reservation->status}}">
@@ -171,7 +184,6 @@
                                     style="background-color: #a20d0d; color: white;">Delete</button>
                             </form>
                         </td>
-
                     </tr>
                     {{-- <div class="modal fade" id="reservation{{$reservation->reservation_id}}" tabindex="-1"
                     role="dialog" aria-labelledby="reservation{{$reservation->reservation_id}}" aria-hidden="true">
