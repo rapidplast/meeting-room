@@ -87,7 +87,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="reservation_time" class="col-sm-3 col-form-label">Meeting Time In</label>
+                <label for="reservation_time" class="col-sm-3 col-form-label" style>Meeting Time In</label>
                 <div class="col-sm-8">
                     <input type="time" class="form-control" id="reservation_time" placeholder="Enter Reservation Time"
                         name="reservation_time">
@@ -152,7 +152,7 @@
                         <td>{{$reservation->ket}}</td>
                         <td>
                             @if($reservation->id_plant == 2 && $reservation->meeting_id == 3)
-                                {{$reservation->meeting->name}} (Lobby)
+                                {{$reservation->meeting->name}} <br>(Lobby)
                             @else
                                 {{$reservation->meeting->name}}
                             @endif
@@ -490,6 +490,10 @@
             }
             #reservationTable th:nth-child(7) {
                 max-width: 150px;
+            }
+            #reservationTable td:nth-child(4),
+            #reservationTable td:nth-child(5){
+            text-align: center;
             }
         </style>
         <style>
